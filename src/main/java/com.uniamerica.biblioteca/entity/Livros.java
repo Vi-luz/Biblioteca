@@ -1,6 +1,6 @@
 package com.uniamerica.biblioteca.entity;
 
-public class livros {
+public class Livros {
     private String titulo;
     private String autor;
     private String ano;
