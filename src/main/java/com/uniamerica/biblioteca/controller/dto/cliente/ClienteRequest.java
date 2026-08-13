@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public record ClienteRequest(
 
+
         String nome,
         String cpf,
         String email,
