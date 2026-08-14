@@ -1,4 +1,4 @@
-package com.uniamerica.biblioteca.controller.dto.cliente;
+package com.uniamerica.biblioteca.controller.cliente.dto;
 
 import com.uniamerica.biblioteca.entity.enums.StatusCliente;
 

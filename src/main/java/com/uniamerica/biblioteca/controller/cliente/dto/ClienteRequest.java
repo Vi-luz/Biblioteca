@@ -1,4 +1,4 @@
-package com.uniamerica.biblioteca.controller.dto.cliente;
+package com.uniamerica.biblioteca.controller.cliente.dto;
 
 import com.uniamerica.biblioteca.entity.enums.StatusCliente;
 
@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ClienteRequest(
+
 
         String nome,
         String cpf,
