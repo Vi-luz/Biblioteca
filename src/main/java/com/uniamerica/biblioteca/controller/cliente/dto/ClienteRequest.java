@@ -1,13 +1,13 @@
-package com.uniamerica.biblioteca.controller.dto.cliente;
+package com.uniamerica.biblioteca.controller.cliente.dto;
 
 import com.uniamerica.biblioteca.entity.enums.StatusCliente;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record ClienteResponse(
+public record ClienteRequest(
 
-        long id,
+
         String nome,
         String cpf,
         String email,

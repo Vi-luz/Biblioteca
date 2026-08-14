@@ -1,8 +1,6 @@
-package com.uniamerica.biblioteca.controller;
+package com.uniamerica.biblioteca.controller.cliente;
 
 
-import com.uniamerica.biblioteca.controller.dto.cliente.ClienteRequest;
-import com.uniamerica.biblioteca.controller.dto.cliente.ClienteResponse;
 import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
