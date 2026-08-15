@@ -20,6 +20,18 @@ public class LivroController {
 
     private final LivroService livroService;
 
+    @PostMapping("/create")
+    public ResponseEntity<LivroResponse> create (@RequestBody LivroRequest  livroRequest){
+
+        try {
+            LivroEntity livroEntity = this.livroService.create(livroRequest);
+            return new ResponseEntity<>(LivroResponse.de(livroEntity), HttpStatus.CREATED);
+        }catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<LivroResponse> buscarPorId (@PathVariable Long id){
 
@@ -76,4 +88,20 @@ public class LivroController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<LivroResponse> delete (@PathVariable Long id){
+
+        try {
+            this.livroService.deletar(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ResponseStatusException responseStatusException){
+            throw responseStatusException;
+        }
+        catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 }
