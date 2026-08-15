@@ -1,8 +1,10 @@
 package com.uniamerica.biblioteca.controller.cliente;
 
 
+import com.uniamerica.biblioteca.controller.cliente.dto.ClienteResponse;
 import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.service.ClienteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cliente")
+@RequiredArgsConstructor
 public class ClienteController {
 
     @Autowired
@@ -55,17 +58,19 @@ public class ClienteController {
         }
     }
     @GetMapping()
-    public ResponseEntity<List<ClienteEntity>> findAll(){
+    public ResponseEntity<List<ClienteResponse>> listar(){
         try{
-            //aqui em delete nao temos o objeto na service entao mandamos apenas o id
-            List<com.uniamerica.biblioteca.entity.ClienteEntity> lista  = this.clienteService.findAll();
-            return new ResponseEntity<>(lista, HttpStatus.OK);
+            List<ClienteResponse> clientes = this.clienteService.listar()
+                    .stream()
+                    .map(ClienteResponse::de)
+                    .toList();
+                    return new ResponseEntity<>(clientes, HttpStatus.OK);
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
-
-            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping("/findByid/{id}")
     public ResponseEntity<ClienteEntity> findById(@PathVariable long id){
         try{

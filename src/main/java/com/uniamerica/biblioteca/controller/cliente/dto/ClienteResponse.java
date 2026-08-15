@@ -1,5 +1,6 @@
 package com.uniamerica.biblioteca.controller.cliente.dto;
 
+import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.entity.enums.StatusCliente;
 
 import java.time.LocalDate;
@@ -16,4 +17,16 @@ public record ClienteResponse(
         LocalDateTime dataCadastro,
         StatusCliente status
 ) {
+    public static ClienteResponse de(ClienteEntity clienteEntity){
+        return new ClienteResponse(
+        clienteEntity.getId(),
+        clienteEntity.getNome(),
+        clienteEntity.getCpf(),
+        clienteEntity.getEmail(),
+        clienteEntity.getTelefone(),
+        clienteEntity.getDataNascimento(),
+        clienteEntity.getDataCadastro(),
+        clienteEntity.getStatus()
+        );
+    }
 }
