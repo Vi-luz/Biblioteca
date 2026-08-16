@@ -1,6 +1,7 @@
 package com.uniamerica.biblioteca.controller.cliente;
 
 
+import com.uniamerica.biblioteca.controller.cliente.dto.ClienteRequest;
 import com.uniamerica.biblioteca.controller.cliente.dto.ClienteResponse;
 import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.service.ClienteService;
@@ -18,17 +19,17 @@ import java.util.List;
 public class ClienteController {
 
     @Autowired
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody ClienteEntity cliente){
+    public ResponseEntity<ClienteResponse> save(@RequestBody ClienteRequest clienteRequest){
         try{
-            String mensagem = this.clienteService.save(cliente);
-            return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
+            ClienteEntity clienteEntity = this.clienteService.save(clienteRequest);
+            return new ResponseEntity<ClienteResponse>(ClienteResponse.de(clienteEntity), HttpStatus.CREATED);
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
 
-            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
 

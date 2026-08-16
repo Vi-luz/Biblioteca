@@ -23,7 +23,7 @@ public class LivroService {
 
         LivroEntity livroEntity = new LivroEntity();
 
-        livroEntity.setTitulo((livroRequest.titulo()));
+        livroEntity.setTitulo(livroRequest.titulo());
         livroEntity.setAutor(livroRequest.autor());
         livroEntity.setEditora(livroRequest.editora());
         livroEntity.setGenero(livroRequest.genero());
