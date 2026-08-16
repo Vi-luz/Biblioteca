@@ -36,10 +36,10 @@ public class ClienteController {
     }
     //long id para saber o id que esta sendo alterado
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@RequestBody ClienteEntity cliente,@PathVariable long id){
+    public ResponseEntity<ClienteEntity> update(@RequestBody ClienteRequest clienteRequest,@PathVariable long id){
         try{
-            String mensagem = this.clienteService.update(cliente,id);
-            return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
+            ClienteEntity cliente = this.clienteService.atualizar(id, clienteRequest);
+            return new ResponseEntity<>(cliente, HttpStatus.CREATED);
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
 
@@ -49,9 +49,10 @@ public class ClienteController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable long id){
         try{
-            //aqui em delete nao temos o objeto na service entao mandamos apenas o id
-            String mensagem = this.clienteService.delete(id);
-            return new ResponseEntity<>(mensagem, HttpStatus.CREATED);
+            this.clienteService.deletarPorId(id);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
 
@@ -75,7 +76,9 @@ public class ClienteController {
     @GetMapping("/findByid/{id}")
     public ResponseEntity<ClienteEntity> findById(@PathVariable long id){
         try{
-            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+            ClienteEntity cliente = this.clienteService.buscarPorId(id);
+
+            return new ResponseEntity<>(cliente, HttpStatus.OK);
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
 
