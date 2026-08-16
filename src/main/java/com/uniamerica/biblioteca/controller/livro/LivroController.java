@@ -22,7 +22,7 @@ public class LivroController {
     private final LivroService livroService;
 
     @PostMapping("/create")
-    public ResponseEntity<LivroResponse> create (@RequestBody LivroRequest  livroRequest){
+    public ResponseEntity<LivroResponse> create (@Valid @RequestBody LivroRequest  livroRequest){
 
         try {
             LivroEntity livroEntity = this.livroService.create(livroRequest);
