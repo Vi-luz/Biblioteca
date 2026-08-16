@@ -38,7 +38,7 @@ public class ClienteService {
         //implementar daqui a pouco
         return "Cliente deletado com sucesso!";
     }
-    public List<ClienteEntity> listar(){return this.findAll();}
+    public List<ClienteEntity> listar(){return this.listar();}
     public ClienteEntity findById(long id){
         //implementar dps
         return null;

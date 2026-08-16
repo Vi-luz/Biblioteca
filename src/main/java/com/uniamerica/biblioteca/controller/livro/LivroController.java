@@ -5,6 +5,7 @@ import com.uniamerica.biblioteca.controller.livro.dto.LivroResponse;
 import com.uniamerica.biblioteca.entity.LivroEntity;
 import com.uniamerica.biblioteca.entity.enums.Genero;
 import com.uniamerica.biblioteca.service.LivroService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class LivroController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LivroResponse> atualizar(@PathVariable Long id,
-                                                   @RequestBody LivroRequest livroRequest)
+                                                   @Valid @RequestBody LivroRequest livroRequest)
     {
         try {
             LivroEntity livroEntity = this.livroService.atualizar(id, livroRequest);
