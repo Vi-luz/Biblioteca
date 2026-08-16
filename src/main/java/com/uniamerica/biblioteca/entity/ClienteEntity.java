@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+
 public class ClienteEntity {
 
     private long id;
