@@ -5,7 +5,9 @@ import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.entity.enums.StatusCliente;
 import com.uniamerica.biblioteca.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,19 +31,49 @@ public class ClienteService {
         return this.clienteRepository.save(clienteEntity);
     }
 
-    //long id para saber o id que esta sendo alterado
-    public String update(ClienteEntity cliente,long id){
-        //implementar dps
-        return "Cliente atualizado com sucesso!";
-    }
-    public String delete(long id){
-        //implementar daqui a pouco
-        return "Cliente deletado com sucesso!";
-    }
-    public List<ClienteEntity> listar(){return this.listar();}
-    public ClienteEntity findById(long id){
-        //implementar dps
-        return null;
+
+
+
+    public ClienteEntity buscarPorId(Long id){
+        return this.clienteRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Livro não encontrado com id "+ id));
     }
 
+    public ClienteEntity atualizar(Long id, ClienteRequest clienteRequest){
+        ClienteEntity cliente = this.buscarPorId(id);
+
+        cliente.setNome(clienteRequest.nome());
+        cliente.setCpf(clienteRequest.cpf());
+        cliente.setEmail(clienteRequest.email());
+        cliente.setTelefone(clienteRequest.telefone());
+        cliente.setDataNascimento(clienteRequest.dataNascimento());
+        cliente.setDataCadastro(clienteRequest.dataCadastro());
+        cliente.setStatus(clienteRequest.status());
+
+        return this.clienteRepository.save(cliente);
+    }
+
+    public ClienteEntity atualizarParcial(Long id, ClienteRequest clienteRequest){
+        ClienteEntity cliente = this.buscarPorId(id);
+
+        if(clienteRequest.nome() != null) cliente.setNome(clienteRequest.nome());
+        if(clienteRequest.cpf() != null) cliente.setCpf(clienteRequest.cpf());
+        if(clienteRequest.email() != null) cliente.setEmail(clienteRequest.email());
+        if(clienteRequest.telefone() != null) cliente.setTelefone(clienteRequest.telefone());
+        if(clienteRequest.dataNascimento() != null) cliente.setDataNascimento(clienteRequest.dataNascimento());
+        if(clienteRequest.dataCadastro() != null) cliente.setDataCadastro(clienteRequest.dataCadastro());
+        if(clienteRequest.status() != null) cliente.setStatus(clienteRequest.status());
+
+        return this.clienteRepository.save(cliente);
+}
+
+    public List<ClienteEntity> listar(){return this.listar();}
+
+
+    public void deletarPorId(Long id){
+        ClienteEntity cliente = this.buscarPorId(id);
+        this.clienteRepository.delete(cliente);
+    }
 }
