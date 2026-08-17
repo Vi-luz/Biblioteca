@@ -5,6 +5,7 @@ import com.uniamerica.biblioteca.controller.cliente.dto.ClienteRequest;
 import com.uniamerica.biblioteca.controller.cliente.dto.ClienteResponse;
 import com.uniamerica.biblioteca.entity.ClienteEntity;
 import com.uniamerica.biblioteca.service.ClienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class ClienteController {
     }
     //long id para saber o id que esta sendo alterado
     @PutMapping("/update/{id}")
-    public ResponseEntity<ClienteEntity> update(@RequestBody ClienteRequest clienteRequest,@PathVariable long id){
+    public ResponseEntity<ClienteEntity> update(@RequestBody ClienteRequest clienteRequest,@Valid @PathVariable long id){
         try{
             ClienteEntity cliente = this.clienteService.atualizar(id, clienteRequest);
             return new ResponseEntity<>(cliente, HttpStatus.CREATED);
