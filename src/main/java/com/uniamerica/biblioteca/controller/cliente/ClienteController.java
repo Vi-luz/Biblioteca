@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -54,7 +55,9 @@ public class ClienteController {
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        }catch(Exception ex){
+        }catch (ResponseStatusException e){
+            throw e;
+        } catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
 
             return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
@@ -68,6 +71,8 @@ public class ClienteController {
                     .map(ClienteResponse::de)
                     .toList();
                     return new ResponseEntity<>(clientes, HttpStatus.OK);
+        }catch (ResponseStatusException e){
+            throw e;
         }catch(Exception ex){
             //catch aonde retorna algum erro generico pro usuario
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,15 +80,16 @@ public class ClienteController {
     }
 
     @GetMapping("/findByid/{id}")
-    public ResponseEntity<ClienteEntity> findById(@PathVariable long id){
+    public ResponseEntity<ClienteResponse> findById(@PathVariable long id){
         try{
             ClienteEntity cliente = this.clienteService.buscarPorId(id);
 
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
-        }catch(Exception ex){
-            //catch aonde retorna algum erro generico pro usuario
-
-            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>(ClienteResponse.de(cliente), HttpStatus.OK);
+        }catch (ResponseStatusException e){
+            throw e;
+        }
+        catch(Exception ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

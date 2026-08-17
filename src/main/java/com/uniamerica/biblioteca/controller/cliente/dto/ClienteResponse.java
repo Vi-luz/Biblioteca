@@ -17,16 +17,16 @@ public record ClienteResponse(
         LocalDateTime dataCadastro,
         StatusCliente status
 ) {
-    public static ClienteResponse de(ClienteEntity clienteEntity){
+    public static ClienteResponse de(ClienteEntity clienteEntity) {
         return new ClienteResponse(
-        clienteEntity.getId(),
-        clienteEntity.getNome(),
-        clienteEntity.getCpf(),
-        clienteEntity.getEmail(),
-        clienteEntity.getTelefone(),
-        clienteEntity.getDataNascimento(),
-        clienteEntity.getDataCadastro(),
-        clienteEntity.getStatus()
+                clienteEntity.getId(),
+                clienteEntity.getNome(),
+                clienteEntity.getCpf(),
+                clienteEntity.getEmail(),
+                clienteEntity.getTelefone(),
+                clienteEntity.getDataNascimento(),
+                clienteEntity.getDataCadastro(),
+                clienteEntity.getStatus()
         );
     }
 }
