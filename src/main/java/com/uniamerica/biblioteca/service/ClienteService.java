@@ -38,7 +38,7 @@ public class ClienteService {
         return this.clienteRepository.findById(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Livro não encontrado com id "+ id));
+                                "Cliente não encontrado com id "+ id));
     }
 
     public ClienteEntity atualizar(Long id, ClienteRequest clienteRequest){
@@ -69,7 +69,8 @@ public class ClienteService {
         return this.clienteRepository.save(cliente);
 }
 
-    public List<ClienteEntity> listar(){return this.listar();}
+    public List<ClienteEntity> listar(){
+        return this.clienteRepository.findAll();}
 
 
     public void deletarPorId(Long id){
